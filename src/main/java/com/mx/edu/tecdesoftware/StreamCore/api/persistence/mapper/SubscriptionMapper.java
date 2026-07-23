@@ -9,10 +9,7 @@ import org.mapstruct.Mappings;
 
 import java.util.List;
 
-@Mapper(
-        componentModel = "spring",
-        uses = {ViewingMapper.class}
-)
+@Mapper(componentModel = "spring", uses = {ViewingMapper.class, UserMapper.class, PlanMapper.class})
 public interface SubscriptionMapper {
 
     @Mappings({
@@ -24,12 +21,16 @@ public interface SubscriptionMapper {
             @Mapping(source = "medioPago", target = "paymentMethod"),
             @Mapping(source = "comentario", target = "comment"),
             @Mapping(source = "estado", target = "state"),
-            @Mapping(source = "visualizaciones", target = "viewings")
+            @Mapping(source = "visualizaciones", target = "viewings"),
+            @Mapping(source = "usuario", target = "user"),
+            @Mapping(source = "plan", target = "plan")
     })
     Subscription toSubscription(Suscripcion suscripcion);
 
     List<Subscription> toSubscriptions(List<Suscripcion> suscripciones);
 
     @InheritInverseConfiguration
+    @Mapping(target = "usuario", ignore = true)
+    @Mapping(target = "plan", ignore = true)
     Suscripcion toSuscripcion(Subscription subscription);
 }

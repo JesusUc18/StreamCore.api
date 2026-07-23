@@ -14,6 +14,8 @@ public class Subscription {
     private String comment;
     private String state;
     private List<Viewing> viewings;
+    private User user;
+    private Plan plan;
 
     public Integer getSubscriptionId() {
         return subscriptionId;
@@ -85,5 +87,21 @@ public class Subscription {
 
     public void setViewings(List<Viewing> viewings) {
         this.viewings = viewings;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public Plan getPlan() {
+        return plan;
+    }
+
+    public void setPlan(Plan plan) {
+        this.plan = plan;
     }
 }
