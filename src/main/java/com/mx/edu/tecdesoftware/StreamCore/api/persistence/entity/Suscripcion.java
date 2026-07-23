@@ -38,6 +38,14 @@ public class Suscripcion {
     @OneToMany(mappedBy = "suscripcion", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SuscripcionContenido> visualizaciones = new ArrayList<>();
 
+    @ManyToOne
+    @JoinColumn(name = "id_usuario", insertable = false, updatable = false)
+    private Usuario usuario;
+
+    @ManyToOne
+    @JoinColumn(name = "id_plan", insertable = false, updatable = false)
+    private Plan plan;
+
     public Suscripcion() {
     }
 
@@ -112,5 +120,21 @@ public class Suscripcion {
 
     public void setVisualizaciones(List<SuscripcionContenido> visualizaciones) {
         this.visualizaciones = visualizaciones;
+    }
+
+    public Usuario getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Usuario usuario) {
+        this.usuario = usuario;
+    }
+
+    public Plan getPlan() {
+        return plan;
+    }
+
+    public void setPlan(Plan plan) {
+        this.plan = plan;
     }
 }

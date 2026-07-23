@@ -28,6 +28,10 @@ public class SuscripcionContenido {
     @Column(name = "estado")
     private Boolean estado;
 
+    @ManyToOne
+    @JoinColumn(name = "id_contenido", insertable = false, updatable = false)
+    private Contenido contenido;
+
     public SuscripcionContenido() {
     }
 
@@ -78,5 +82,13 @@ public class SuscripcionContenido {
 
     public void setEstado(Boolean estado) {
         this.estado = estado;
+    }
+
+    public Contenido getContenido() {
+        return contenido;
+    }
+
+    public void setContenido(Contenido contenido) {
+        this.contenido = contenido;
     }
 }
