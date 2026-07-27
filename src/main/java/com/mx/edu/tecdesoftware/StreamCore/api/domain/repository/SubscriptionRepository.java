@@ -1,0 +1,13 @@
+package com.mx.edu.tecdesoftware.StreamCore.api.domain.repository;
+
+import com.mx.edu.tecdesoftware.StreamCore.api.domain.Subscription;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface SubscriptionRepository {
+
+    List<Subscription> getAll();
+    Optional<List<Subscription>> getByUser(String userId);
+    Subscription save(Subscription subscription);
+}
