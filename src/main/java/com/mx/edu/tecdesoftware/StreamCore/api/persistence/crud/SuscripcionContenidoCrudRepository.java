@@ -6,4 +6,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface SuscripcionContenidoCrudRepository extends CrudRepository<SuscripcionContenido, Integer> {
+
+    void deleteByIdContenido(Integer idContenido);
 }

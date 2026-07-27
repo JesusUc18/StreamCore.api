@@ -6,6 +6,7 @@ import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
+import java.util.List;
 
 @Mapper(componentModel = "spring", uses = {CategoryMapper.class})
 public interface ContentMapper {
@@ -23,6 +24,8 @@ public interface ContentMapper {
             @Mapping(source = "estado", target = "state")
     })
     Content toContent(Contenido contenido);
+
+    List<Content> toContents(List<Contenido> contenidos);
 
     @InheritInverseConfiguration
     @Mappings({
