@@ -7,6 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
@@ -19,6 +21,8 @@ public interface UserMapper {
             @Mapping(source = "correoElectronico", target = "email")
     })
     User toUser(Usuario usuario);
+
+    List<User> toUsers(List<Usuario> usuarios);
 
     @InheritInverseConfiguration
     @Mapping(target = "suscripciones", ignore = true)

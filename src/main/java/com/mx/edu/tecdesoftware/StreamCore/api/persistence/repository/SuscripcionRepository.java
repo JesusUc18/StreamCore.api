@@ -1,4 +1,4 @@
-package com.mx.edu.tecdesoftware.StreamCore.api.persistence;
+package com.mx.edu.tecdesoftware.StreamCore.api.persistence.repository;
 
 import com.mx.edu.tecdesoftware.StreamCore.api.domain.Subscription;
 import com.mx.edu.tecdesoftware.StreamCore.api.domain.repository.SubscriptionRepository;
