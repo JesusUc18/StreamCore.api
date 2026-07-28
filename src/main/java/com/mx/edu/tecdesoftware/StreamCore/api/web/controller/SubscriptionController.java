@@ -46,4 +46,12 @@ public class SubscriptionController {
     public ResponseEntity<Subscription> save(@RequestBody Subscription subscription) {
         return new ResponseEntity<>(subscriptionService.save(subscription), HttpStatus.CREATED);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Boolean> delete(@PathVariable("id") int subscriptionId) {
+        if (subscriptionService.delete(subscriptionId)) {
+            return ResponseEntity.ok(true);
+        }
+        return ResponseEntity.notFound().build();
+    }
 }

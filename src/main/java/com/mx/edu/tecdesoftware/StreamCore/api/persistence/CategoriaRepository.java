@@ -37,4 +37,9 @@ public class CategoriaRepository implements CategoryRepository {
         categoria.setIdCategoria(null);
         return mapper.toCategory(categoriaCrudRepository.save(categoria));
     }
+
+    @Override
+    public void delete(int categoryId) {
+        categoriaCrudRepository.deleteById(categoryId);
+    }
 }

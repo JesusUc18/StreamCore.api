@@ -25,4 +25,11 @@ public class CategoryService {
     public Category save(Category category) {
         return categoryRepository.save(category);
     }
+
+    public boolean delete(int categoryId) {
+        return getCategory(categoryId).map(category -> {
+            categoryRepository.delete(categoryId);
+            return true;
+        }).orElse(false);
+    }
 }

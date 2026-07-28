@@ -33,4 +33,11 @@ public class SubscriptionService {
     public Optional<Subscription> updateState(int subscriptionId, String state) {
         return subscriptionRepository.updateState(subscriptionId, state);
     }
+
+    public boolean delete(int subscriptionId) {
+        return getSubscription(subscriptionId).map(subscription -> {
+            subscriptionRepository.delete(subscriptionId);
+            return true;
+        }).orElse(false);
+    }
 }

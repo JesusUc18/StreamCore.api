@@ -40,4 +40,9 @@ public class PlanesRepository implements PlanRepository {
         entity.setIdPlan(null);
         return mapper.toPlan(planCrudRepository.save(entity));
     }
+
+    @Override
+    public void delete(int planId) {
+        planCrudRepository.deleteById(planId);
+    }
 }

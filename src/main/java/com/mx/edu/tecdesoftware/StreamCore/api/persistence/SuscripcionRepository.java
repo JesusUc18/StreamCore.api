@@ -57,4 +57,9 @@ public class SuscripcionRepository implements SubscriptionRepository {
                     return mapper.toSubscription(suscripcionCrudRepository.save(suscripcion));
                 });
     }
+
+    @Override
+    public void delete(int subscriptionId) {
+        suscripcionCrudRepository.deleteById(subscriptionId);
+    }
 }

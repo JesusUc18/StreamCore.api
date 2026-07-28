@@ -32,4 +32,12 @@ public class PlanController {
     public ResponseEntity<Plan> save(@RequestBody Plan plan) {
         return ResponseEntity.status(HttpStatus.CREATED).body(planService.save(plan));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Boolean> delete(@PathVariable("id") int planId) {
+        if (planService.delete(planId)) {
+            return ResponseEntity.ok(true);
+        }
+        return ResponseEntity.notFound().build();
+    }
 }

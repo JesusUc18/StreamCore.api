@@ -10,4 +10,5 @@ public interface PlanRepository {
     List<Plan> getAll();
     Optional<Plan> getPlan(int planId);
     Plan save(Plan plan);
+    void delete(int planId);
 }

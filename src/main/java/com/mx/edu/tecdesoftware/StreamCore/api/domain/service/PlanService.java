@@ -25,4 +25,11 @@ public class PlanService {
     public Plan save(Plan plan) {
         return planRepository.save(plan);
     }
+
+    public boolean delete(int planId) {
+        return getPlan(planId).map(plan -> {
+            planRepository.delete(planId);
+            return true;
+        }).orElse(false);
+    }
 }

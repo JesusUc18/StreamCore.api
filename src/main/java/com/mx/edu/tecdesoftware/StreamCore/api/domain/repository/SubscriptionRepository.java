@@ -12,4 +12,5 @@ public interface SubscriptionRepository {
     Subscription save(Subscription subscription);
     Optional<Subscription> getSubscription(int subscriptionId);
     Optional<Subscription> updateState(int subscriptionId, String state);
+    void delete(int subscriptionId);
 }

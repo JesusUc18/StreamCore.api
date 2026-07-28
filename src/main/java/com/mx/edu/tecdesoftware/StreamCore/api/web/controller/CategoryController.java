@@ -32,4 +32,12 @@ public class CategoryController {
     public ResponseEntity<Category> save(@RequestBody Category category) {
         return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.save(category));
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Boolean> delete(@PathVariable("id") int categoryId) {
+        if (categoryService.delete(categoryId)) {
+            return ResponseEntity.ok(true);
+        }
+        return ResponseEntity.notFound().build();
+    }
 }
