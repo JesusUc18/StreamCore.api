@@ -40,4 +40,8 @@ public class ContentService {
             return true;
         }).orElse(false);
     }
+
+    public Optional<Content> updateState(int contentId, boolean state) {
+        return contentRepository.updateState(contentId, state);
+    }
 }

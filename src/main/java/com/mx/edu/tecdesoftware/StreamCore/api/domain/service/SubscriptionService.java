@@ -25,4 +25,12 @@ public class SubscriptionService {
     public Subscription save(Subscription subscription) {
         return subscriptionRepository.save(subscription);
     }
+
+    public Optional<Subscription> getSubscription(int subscriptionId) {
+        return subscriptionRepository.getSubscription(subscriptionId);
+    }
+
+    public Optional<Subscription> updateState(int subscriptionId, String state) {
+        return subscriptionRepository.updateState(subscriptionId, state);
+    }
 }

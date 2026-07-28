@@ -44,6 +44,13 @@ public class ContentController {
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @PatchMapping("/{id}/state")
+    public ResponseEntity<Content> updateState(@PathVariable("id") int contentId, @RequestBody Boolean state) {
+        return contentService.updateState(contentId, state)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @PostMapping("")
     public ResponseEntity<Content> save(@RequestBody Content content) {
         return ResponseEntity.status(HttpStatus.CREATED).body(contentService.save(content));

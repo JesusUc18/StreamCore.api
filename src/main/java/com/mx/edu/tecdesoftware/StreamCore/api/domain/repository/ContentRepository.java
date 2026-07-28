@@ -13,4 +13,5 @@ public interface ContentRepository {
     Optional<Content> getContent(int contentId);
     Content save(Content content);
     void delete(int contentId);
+    Optional<Content> updateState(int contentId, boolean state);
 }

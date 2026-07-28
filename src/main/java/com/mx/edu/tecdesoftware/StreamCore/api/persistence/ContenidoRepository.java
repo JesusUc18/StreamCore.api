@@ -1,4 +1,4 @@
-package com.mx.edu.tecdesoftware.StreamCore.api.persistence.repository;
+package com.mx.edu.tecdesoftware.StreamCore.api.persistence;
 
 import com.mx.edu.tecdesoftware.StreamCore.api.domain.Content;
 import com.mx.edu.tecdesoftware.StreamCore.api.domain.repository.ContentRepository;
@@ -66,5 +66,14 @@ public class ContenidoRepository implements ContentRepository {
 
         suscripcionContenidoCrudRepository.deleteByIdContenido(contentId);
         contenidoCrudRepository.deleteById(contentId);
+    }
+
+    @Override
+    public Optional<Content> updateState(int contentId, boolean state) {
+        return contenidoCrudRepository.findById(contentId)
+                .map(contenido -> {
+                    contenido.setEstado(state);
+                    return mapper.toContent(contenidoCrudRepository.save(contenido));
+                });
     }
 }

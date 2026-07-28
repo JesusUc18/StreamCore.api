@@ -1,4 +1,4 @@
-package com.mx.edu.tecdesoftware.StreamCore.api.persistence.repository;
+package com.mx.edu.tecdesoftware.StreamCore.api.persistence;
 
 import com.mx.edu.tecdesoftware.StreamCore.api.domain.Subscription;
 import com.mx.edu.tecdesoftware.StreamCore.api.domain.repository.SubscriptionRepository;
@@ -41,5 +41,20 @@ public class SuscripcionRepository implements SubscriptionRepository {
         }
 
         return mapper.toSubscription(suscripcionCrudRepository.save(suscripcion));
+    }
+
+    @Override
+    public Optional<Subscription> getSubscription(int subscriptionId) {
+        return suscripcionCrudRepository.findById(subscriptionId)
+                .map(mapper::toSubscription);
+    }
+
+    @Override
+    public Optional<Subscription> updateState(int subscriptionId, String state) {
+        return suscripcionCrudRepository.findById(subscriptionId)
+                .map(suscripcion -> {
+                    suscripcion.setEstado(state);
+                    return mapper.toSubscription(suscripcionCrudRepository.save(suscripcion));
+                });
     }
 }
