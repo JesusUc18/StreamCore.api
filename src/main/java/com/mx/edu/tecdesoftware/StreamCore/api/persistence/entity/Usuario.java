@@ -27,6 +27,9 @@ public class Usuario {
     @Column(name = "correo_electronico", length = 70)
     private String correoElectronico;
 
+    @Column(name = "contrasena", length = 60)
+    private String contrasena;
+
     @OneToMany(mappedBy = "usuario")
     private List<Suscripcion> suscripciones = new ArrayList<>();
 
@@ -79,6 +82,14 @@ public class Usuario {
 
     public void setCorreoElectronico(String correoElectronico) {
         this.correoElectronico = correoElectronico;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     public List<Suscripcion> getSuscripciones() {
