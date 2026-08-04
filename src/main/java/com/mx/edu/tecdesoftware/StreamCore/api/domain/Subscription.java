@@ -1,18 +1,33 @@
 package com.mx.edu.tecdesoftware.StreamCore.api.domain;
 
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
 public class Subscription {
 
     private Integer subscriptionId;
+
+    @NotBlank(message = "el userId es obligatorio")
     private String userId;
+
+    @NotNull(message = "el planId es obligatorio")
     private Integer planId;
+
+    @NotNull(message = "la fecha de inicio es obligatoria")
     private LocalDateTime startDate;
+
     private LocalDateTime endDate;
     private String paymentMethod;
     private String comment;
+
+    @NotBlank(message = "el estado es obligatorio")
     private String state;
+
+    @Valid
     private List<Viewing> viewings;
     private User user;
     private Plan plan;

@@ -6,14 +6,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.access.AccessDeniedException;
 
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
@@ -53,11 +57,42 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     // 409 - fallas de integridad referencial: FK inexistente, duplicados, etc.
+    // (red de seguridad por si algo se escapa sin ser validado antes en el service)
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<ApiError> handleDataIntegrity(DataIntegrityViolationException ex) {
         ApiError error = new ApiError(HttpStatus.CONFLICT.value(), "Conflict",
                 "La operación viola una regla de integridad de datos (llave foránea inexistente o registro duplicado).");
         return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
+
+    // 409 - reglas de negocio: recurso duplicado, referencia a un recurso inexistente,
+    // o intento de eliminar un recurso que todavía tiene dependientes.
+    @ExceptionHandler(ConflictException.class)
+    public ResponseEntity<ApiError> handleConflict(ConflictException ex) {
+        ApiError error = new ApiError(HttpStatus.CONFLICT.value(), "Conflict", ex.getMessage());
+        return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
+    }
+
+    // 400 - datos incompletos o inválidos según las anotaciones @Valid/@NotNull/@NotBlank/etc.
+    @Override
+    protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
+                                                                  HttpHeaders headers,
+                                                                  HttpStatusCode status,
+                                                                  WebRequest request) {
+        String message = ex.getBindingResult().getFieldErrors().stream()
+                .map(fe -> fe.getField() + ": " + fe.getDefaultMessage())
+                .collect(Collectors.joining("; "));
+        ApiError error = new ApiError(HttpStatus.BAD_REQUEST.value(), "Bad Request",
+                message.isBlank() ? "Datos inválidos o incompletos." : message);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
+    }
+
+    // 403 - token ausente/ inválido para una ruta protegida (respuesta consistente en JSON)
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<ApiError> handleAccessDenied(AccessDeniedException ex) {
+        ApiError error = new ApiError(HttpStatus.FORBIDDEN.value(), "Forbidden",
+                "No tienes autorización para acceder a este recurso. Verifica tu token JWT.");
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
     }
 
     // 500 - cualquier otro error no controlado (red de seguridad, ya no debería tronar "crudo")

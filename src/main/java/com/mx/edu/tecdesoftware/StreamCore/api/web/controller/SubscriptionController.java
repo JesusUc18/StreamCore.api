@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -118,7 +119,7 @@ public class SubscriptionController {
     @ApiResponse(responseCode = "400", description = "Datos de suscripción inválidos")
     @ApiResponse(responseCode = "409", description = "El usuario o el plan indicado no existen")
     @ApiResponse(responseCode = "500", description = "Error interno del servidor")
-    public ResponseEntity<Subscription> save(@RequestBody Subscription subscription) {
+    public ResponseEntity<Subscription> save(@Valid @RequestBody Subscription subscription) {
         return new ResponseEntity<>(subscriptionService.save(subscription), HttpStatus.CREATED);
     }
 

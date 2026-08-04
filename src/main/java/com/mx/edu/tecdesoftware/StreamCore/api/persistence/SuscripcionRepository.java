@@ -32,6 +32,11 @@ public class SuscripcionRepository implements SubscriptionRepository {
     }
 
     @Override
+    public boolean existsByPlan(int planId) {
+        return suscripcionCrudRepository.existsByIdPlan(planId);
+    }
+
+    @Override
     public Subscription save(Subscription subscription) {
         Suscripcion suscripcion = mapper.toSuscripcion(subscription);
         suscripcion.setIdSuscripcion(null);

@@ -1,7 +1,9 @@
 package com.mx.edu.tecdesoftware.StreamCore.api.domain.service;
 
 import com.mx.edu.tecdesoftware.StreamCore.api.domain.Content;
+import com.mx.edu.tecdesoftware.StreamCore.api.domain.repository.CategoryRepository;
 import com.mx.edu.tecdesoftware.StreamCore.api.domain.repository.ContentRepository;
+import com.mx.edu.tecdesoftware.StreamCore.api.web.exception.ConflictException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,6 +15,9 @@ public class ContentService {
 
     @Autowired
     private ContentRepository contentRepository;
+
+    @Autowired
+    private CategoryRepository categoryRepository;
 
     public List<Content> getAll() {
         return contentRepository.getAll();
@@ -31,6 +36,9 @@ public class ContentService {
     }
 
     public Content save(Content content) {
+        if (categoryRepository.getCategory(content.getCategoryId()).isEmpty()) {
+            throw new ConflictException("La categoría '" + content.getCategoryId() + "' indicada no existe.");
+        }
         return contentRepository.save(content);
     }
 

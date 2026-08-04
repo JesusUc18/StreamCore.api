@@ -13,4 +13,6 @@ public interface ContenidoCrudRepository extends CrudRepository<Contenido, Integ
     List<Contenido> findByIdCategoriaOrderByTituloAsc(Integer idCategoria);
 
     Optional<List<Contenido>> findByTipoAndEstado(String tipo, Boolean estado);
+
+    boolean existsByIdCategoria(Integer idCategoria);
 }

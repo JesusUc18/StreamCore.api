@@ -1,16 +1,29 @@
 package com.mx.edu.tecdesoftware.StreamCore.api.domain;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class Content {
 
     private Integer contentId;
+
+    @NotBlank(message = "el título es obligatorio")
     private String title;
+
+    @NotNull(message = "la categoría es obligatoria")
     private Integer categoryId;
+
     private Category category;
+
+    @NotBlank(message = "el tipo es obligatorio (P = Película, S = Serie)")
     private String type;
+
     private Integer releaseYear;
     private Integer durationMinutes;
     private Integer seasons;
     private String rating;
+
+    @NotNull(message = "el estado es obligatorio")
     private Boolean state;
 
     public Integer getContentId() {

@@ -1,12 +1,18 @@
 package com.mx.edu.tecdesoftware.StreamCore.api.domain;
 
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDateTime;
 
 public class Viewing {
 
+    @NotNull(message = "el contentId de la visualización es obligatorio")
     private Integer contentId;
+
     private LocalDateTime viewedAt;
     private Integer minutesWatched;
+
+    @NotNull(message = "el estado (active) de la visualización es obligatorio")
     private Boolean active;
 
     public Integer getContentId() {

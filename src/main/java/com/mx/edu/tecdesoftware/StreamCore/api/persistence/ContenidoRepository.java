@@ -52,6 +52,11 @@ public class ContenidoRepository implements ContentRepository {
     }
 
     @Override
+    public boolean existsByCategory(int categoryId) {
+        return contenidoCrudRepository.existsByIdCategoria(categoryId);
+    }
+
+    @Override
     public Content save(Content content) {
         Contenido contenido = mapper.toContenido(content);
         contenido.setIdContenido(null);

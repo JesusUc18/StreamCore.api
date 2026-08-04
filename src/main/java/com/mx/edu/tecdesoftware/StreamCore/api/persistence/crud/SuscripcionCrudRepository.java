@@ -10,4 +10,6 @@ import java.util.List;
 public interface SuscripcionCrudRepository extends CrudRepository<Suscripcion, Integer> {
 
     List<Suscripcion> findByIdUsuario(String idUsuario);
+
+    boolean existsByIdPlan(Integer idPlan);
 }

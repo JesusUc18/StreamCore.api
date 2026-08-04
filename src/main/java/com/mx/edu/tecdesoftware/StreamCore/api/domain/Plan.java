@@ -1,15 +1,32 @@
 package com.mx.edu.tecdesoftware.StreamCore.api.domain;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
 import java.math.BigDecimal;
 
 public class Plan {
 
     private Integer planId;
+
+    @NotBlank(message = "el nombre es obligatorio")
     private String name;
+
     private String description;
+
+    @NotNull(message = "el precio mensual es obligatorio")
+    @Positive(message = "el precio mensual debe ser mayor a 0")
     private BigDecimal monthlyPrice;
+
+    @NotNull(message = "las pantallas simultáneas son obligatorias")
+    @Positive(message = "las pantallas simultáneas deben ser mayor a 0")
     private Integer simultaneousScreens;
+
+    @NotBlank(message = "la calidad de video es obligatoria")
     private String videoQuality;
+
+    @NotNull(message = "el estado es obligatorio")
     private Boolean state;
 
     public Integer getPlanId() {

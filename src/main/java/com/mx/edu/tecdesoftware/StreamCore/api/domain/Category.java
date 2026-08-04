@@ -1,9 +1,16 @@
 package com.mx.edu.tecdesoftware.StreamCore.api.domain;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public class Category {
 
     private Integer categoryId;
+
+    @NotBlank(message = "la descripción es obligatoria")
     private String description;
+
+    @NotNull(message = "el estado es obligatorio")
     private Boolean state;
 
     public Integer getCategoryId() {

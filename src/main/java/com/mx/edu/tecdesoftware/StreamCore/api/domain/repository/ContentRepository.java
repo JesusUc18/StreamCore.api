@@ -11,6 +11,7 @@ public interface ContentRepository {
     Optional<List<Content>> getByCategory(int categoryId);
     Optional<List<Content>> getByType(String type);
     Optional<Content> getContent(int contentId);
+    boolean existsByCategory(int categoryId);
     Content save(Content content);
     void delete(int contentId);
     Optional<Content> updateState(int contentId, boolean state);

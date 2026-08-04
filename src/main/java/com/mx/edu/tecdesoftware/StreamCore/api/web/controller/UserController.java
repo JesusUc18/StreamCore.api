@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -60,7 +61,8 @@ public class UserController {
                                                 "lastName": "García López",
                                                 "phone": 5512345678,
                                                 "address": "Av. Reforma 123, CDMX",
-                                                "email": "ana.garcia@example.com"
+                                                "email": "ana.garcia@example.com",
+                                                "password": "1234"
                                             }
                                             """
                             )
@@ -71,7 +73,7 @@ public class UserController {
     @ApiResponse(responseCode = "400", description = "Datos de usuario inválidos")
     @ApiResponse(responseCode = "409", description = "Ya existe un usuario con ese ID")
     @ApiResponse(responseCode = "500", description = "Error interno del servidor")
-    public ResponseEntity<User> save(@RequestBody User user) {
+    public ResponseEntity<User> save(@Valid @RequestBody User user) {
         return ResponseEntity.status(HttpStatus.CREATED).body(userService.save(user));
     }
 

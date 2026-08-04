@@ -18,7 +18,8 @@ public interface UserMapper {
             @Mapping(source = "apellidos", target = "lastName"),
             @Mapping(source = "celular", target = "phone"),
             @Mapping(source = "direccion", target = "address"),
-            @Mapping(source = "correoElectronico", target = "email")
+            @Mapping(source = "correoElectronico", target = "email"),
+            @Mapping(target = "password", ignore = true) // nunca regresar la contraseña en las respuestas
     })
     User toUser(Usuario usuario);
 
@@ -26,5 +27,6 @@ public interface UserMapper {
 
     @InheritInverseConfiguration
     @Mapping(target = "suscripciones", ignore = true)
+    @Mapping(source = "password", target = "contrasena")
     Usuario toUsuario(User user);
 }

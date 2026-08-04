@@ -9,6 +9,7 @@ public interface SubscriptionRepository {
 
     List<Subscription> getAll();
     Optional<List<Subscription>> getByUser(String userId);
+    boolean existsByPlan(int planId);
     Subscription save(Subscription subscription);
     Optional<Subscription> getSubscription(int subscriptionId);
     Optional<Subscription> updateState(int subscriptionId, String state);

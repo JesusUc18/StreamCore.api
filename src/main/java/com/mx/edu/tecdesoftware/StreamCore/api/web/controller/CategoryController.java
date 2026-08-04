@@ -7,6 +7,7 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -66,7 +67,7 @@ public class CategoryController {
     @ApiResponse(responseCode = "201", description = "Categoría creada correctamente")
     @ApiResponse(responseCode = "400", description = "Datos de categoría inválidos")
     @ApiResponse(responseCode = "500", description = "Error interno del servidor")
-    public ResponseEntity<Category> save(@RequestBody Category category) {
+    public ResponseEntity<Category> save(@Valid @RequestBody Category category) {
         return ResponseEntity.status(HttpStatus.CREATED).body(categoryService.save(category));
     }
 
